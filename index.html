@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalkulator Metode Numerik — SPL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="crop tl"></div><div class="crop tr"></div><div class="crop bl"></div><div class="crop br"></div>
+
+<div class="frame">
+  <header class="top">
+    <div>
+      <p class="brand-eyebrow">SPL · Sistem Persamaan Lanjar</p>
+      <h1 class="title">Kalkulator Metode Numerik
+        <span class="sub">Matriks Balikan &nbsp;·&nbsp; Lelaran Jacobi &nbsp;·&nbsp; Lelaran Gauss-Seidel</span>
+      </h1>
+    </div>
+    <div class="top-right">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ganti mode gelap/terang">
+        <span class="theme-icon" id="themeIcon">☀</span>
+        <span id="themeLabel">Mode Terang</span>
+      </button>
+      <div class="credit">
+        <b>Kelompok 4</b> — Teknik Informatika<br>
+        Universitas Perjuangan · Metode Numerik
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="panel sidebar">
+      <div>
+        <p class="panel-label">Metode</p>
+        <div class="method-list" id="methodList">
+          <label class="method-opt active" data-method="inverse">
+            <input type="radio" name="method" value="inverse" checked>
+            <span style="flex:1">Matriks Balikan</span>
+            <span class="tag">langsung</span>
+          </label>
+          <label class="method-opt" data-method="jacobi">
+            <input type="radio" name="method" value="jacobi">
+            <span style="flex:1">Lelaran Jacobi</span>
+            <span class="tag">iteratif</span>
+          </label>
+          <label class="method-opt" data-method="seidel">
+            <input type="radio" name="method" value="seidel">
+            <span style="flex:1">Gauss-Seidel</span>
+            <span class="tag">iteratif</span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <p class="panel-label">Ukuran Matriks</p>
+        <div class="size-row">
+          <label>n × n variabel</label>
+          <div class="stepper">
+            <button type="button" id="sizeDown">−</button>
+            <span id="sizeVal">2</span>
+            <button type="button" id="sizeUp">+</button>
+          </div>
+        </div>
+        <p class="hint">Rentang 2–5 variabel.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn primary" id="btnHitung">▸ Hitung</button>
+        <button class="btn" id="btnContoh">Contoh Soal</button>
+        <button class="btn ghost" id="btnReset">Reset / Hapus</button>
+      </div>
+
+      <p class="hint" id="methodHint">Menyelesaikan Ax = B melalui invers matriks A. Cocok untuk sistem berukuran kecil–menengah dan solusi eksak.</p>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-col">
+      <section class="panel">
+        <p class="panel-label">Input Sistem — Ax = B</p>
+        <div class="input-grid">
+          <div>
+            <div class="matrix-block-label">Matriks Koefisien A &nbsp;+&nbsp; Vektor Konstanta B</div>
+            <div class="matrix-wrap">
+              <span class="bracket">[</span>
+              <table class="matrix-table" id="matrixA"></table>
+              <span class="bracket">]</span>
+              <span style="align-self:center; color:var(--muted-2); font-family:var(--font-mono);">x&nbsp;=&nbsp;</span>
+              <span class="bracket">[</span>
+              <table class="matrix-table" id="vectorB"></table>
+              <span class="bracket">]</span>
+            </div>
+            <div id="warnDD"></div>
+          </div>
+
+          <div class="params-box" id="paramsBox" style="display:none;">
+            <div class="matrix-block-label">Parameter Iterasi</div>
+            <div class="field">
+              <label>Tebakan awal (x₀)</label>
+              <div class="x0-row" id="x0Row"></div>
+            </div>
+            <div class="field">
+              <label>Toleransi Error <span class="unit">ε</span></label>
+              <input type="text" id="tolInput" value="0.0001">
+            </div>
+            <div class="field">
+              <label>Maksimal Iterasi</label>
+              <input type="number" id="maxIterInput" value="50" min="1" max="500">
+            </div>
+          </div>
+        </div>
+        <div id="errorArea"></div>
+      </section>
+
+      <section class="panel results-panel" id="resultsPanel">
+        <p class="panel-label">Hasil Perhitungan</p>
+        <div class="empty-state" id="emptyState">Masukkan matriks A dan vektor B, lalu tekan <b style="color:var(--muted)">Hitung</b> untuk melihat solusi, galat, dan status konvergensi.</div>
+        <div id="resultsContent" style="display:none;"></div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="page-footer">KALKULATOR METODE NUMERIK — DIRANCANG UNTUK VALIDASI SPL SECARA AKURAT · HTML / CSS / JAVASCRIPT MURNI</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
